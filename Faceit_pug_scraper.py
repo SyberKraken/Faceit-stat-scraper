@@ -66,13 +66,12 @@ def pretty_mapdata_print(mapdata):
 def main():
     players = {}
     mapdata = {}
-    indata = sys.argv
     flags = []
     # catch flags from indata and remove
-    for data in indata:
+    for data in sys.argv:
         if data[0] == "-":
             flags.append(data)
-            indata.remove(data)
+            sys.argv.remove(data)
     # Get stats for all palyers
     for name in sys.argv[1:]:
         players[name] = extractplayerstats(name)
