@@ -67,9 +67,12 @@ def main():
     players = {}
     mapdata = {}
     flags = []
+    flag_dict = {"-p": "avg_plays",
+               "-w": "avg_winrate",
+               "-k": "avg_kills"}
     # catch flags from indata and remove
     for data in sys.argv:
-        if data[0] == "-":
+        if data in flag_dict:
             flags.append(data)
             sys.argv.remove(data)
     # Get stats for all palyers
@@ -88,9 +91,7 @@ def main():
         mapdata[map] = stat_avg
     #sortbyflag
     for flag in flags:
-        sort_by = {"-p": "avg_plays",
-                   "-w": "avg_winrate",
-                   "-k": "avg_kills"}.get(flag, None)
+        sort_by = flag_dict.get(flag, None)
         if sort_by is not None:
             mapdata = {map: data for map, data in sorted(mapdata.items(), key=lambda item: item[1][sort_by])}
     pretty_mapdata_print(mapdata)
